@@ -42,7 +42,7 @@
 									<option value="SRP" {if $config.account_encryption == 'SRP'}selected{/if}>SRP</option>
 								</select>
 							</div>
-							<p class="col-sm-12 col-form-label"><span style='color: #f00;'>SRP6:</span>Select this for most modern emulators (with <b>salt</b> and <b>verifier</b> columns in <b>auth.accounts</b> table).<br/><span style='color: #f00;'>SPH:</span> Select this for aged emulators (with <b>sha_pass_hash</b> column in <b>auth.accounts</b> table).<br/><span style='color: #f00;'>SRP:</span> Mostly for <b>cMangos</b> and <b>vMangos</b> emulators.</p>
+                                                        <p class="col-sm-12 col-form-label"><span style='color: #f00;'>SRP6:</span>Select this for most modern emulators (with <b>salt</b> and <b>verifier</b> columns in <b>auth.accounts</b> table).<br/><span style='color: #f00;'>SPH:</span> Select this for aged emulators (with <b>sha_pass_hash</b> column in <b>auth.accounts</b> table).<br/><span style='color: #f00;'>SRP:</span> Mostly for legacy emulators.</p>
 						</div>
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label">RBAC</label>
