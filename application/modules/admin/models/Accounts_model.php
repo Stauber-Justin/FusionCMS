@@ -98,9 +98,7 @@ class Accounts_model extends CI_Model
     public function getAccessId($userId = 0)
     {
         $query = $this->connection->query(
-            "SELECT " . column("account_access", "gmlevel", true) . " FROM " .
-            table("account_access") . " WHERE " . column("account_access", "id") .
-            " = ?",
+            "SELECT gmlevel FROM account_access WHERE id = ?",
             [$userId]
         );
 
@@ -135,13 +133,13 @@ class Accounts_model extends CI_Model
 
         if ($this->getAccessId($id)) {
             // Update external access
-            $this->connection->table(table('account_access'))
-                ->where(column('account_access', 'id'), $id)
+            $this->connection->table('account_access')
+                ->where('id', $id)
                 ->update($external_account_access_data);
         } else {
             // Insert external access
-            $external_account_access_data[column('account_access', 'id')] = $id;
-            $this->connection->table(table('account_access'))
+            $external_account_access_data['id'] = $id;
+            $this->connection->table('account_access')
                 ->insert($external_account_access_data);
         }
 

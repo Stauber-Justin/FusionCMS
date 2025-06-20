@@ -437,9 +437,9 @@ class External_account_model extends CI_Model
         $this->connect();
 
         $this->connection
-            ->table(table("account_access"))
-            ->where(column("account", "id"), $userId)
-            ->update([column("account_access", "SecurityLevel") => $newRank]);
+            ->table('account_access')
+            ->where('id', $userId)
+            ->update(['gmlevel' => $newRank]);
     }
 
     public function setLastIp($userId, $ip)

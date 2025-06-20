@@ -14,11 +14,8 @@ class Data_model extends CI_Model
             return false;
         }
 
-        switch ($this->emuStr) {
-            default:
-            {
-                $statements = [
-                    'TopArenaTeams' => "SELECT `arenaTeamId` AS arenateamid, `rating`, `rank`, `arena_team`.`name`, `captainGuid` AS captain, `seasonWins`, `type`, `characters`.`race` AS race FROM `arena_team` RIGHT JOIN `characters` ON `characters`.`guid` = `arena_team`.`captainGuid` WHERE `type` = ? ORDER BY rating DESC LIMIT ?;",
+        $statements = [
+            'TopArenaTeams' => "SELECT `arenaTeamId` AS arenateamid, `rating`, `rank`, `arena_team`.`name`, `captainGuid` AS captain, `seasonWins`, `type`, `characters`.`race` AS race FROM `arena_team` RIGHT JOIN `characters` ON `characters`.`guid` = `arena_team`.`captainGuid` WHERE `type` = ? ORDER BY rating DESC LIMIT ?;",
 
                     'TeamMembers' => "SELECT 
                                     `arena_team_member`.`arenaTeamId` AS arenateamid, 
@@ -33,10 +30,7 @@ class Data_model extends CI_Model
                                 RIGHT JOIN `characters` ON `characters`.`guid` = `arena_team_member`.`guid` 
                                 WHERE `arena_team_member`.`arenateamid` = ? ORDER BY guid ASC;",
                     'TopHKPlayers' => "SELECT `guid`, `name`, `level`, `race`, `class`, `gender`, `totalKills` AS kills FROM `characters` WHERE `totalKills` > 0 ORDER BY `totalKills` DESC LIMIT ?;"
-                ];
-                break;
-            }
-        }
+        ];
 
         return $statements[$key];
     }
