@@ -1,0 +1,1 @@
+{"version":1,"defects":{"AdminSecurityTest::testConstructorThrowsWhenNotStaff":3,"CreateAccountTest::testCreateAccountInsertsRow":4},"times":{"AdminSecurityTest::testConstructorThrowsWhenNotStaff":0.002,"CreateAccountTest::testCreateAccountInsertsRow":0}}
