@@ -56,6 +56,7 @@ class Trinity_legion implements Emulator
 
         'account' => [
             'id'            => 'id',
+            'battlenet_id'	=> 'battlenet_id',
             'username'      => 'username',
             'sha_pass_hash' => 'sha_pass_hash',
             'salt'          => 'salt',

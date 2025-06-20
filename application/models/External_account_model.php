@@ -182,7 +182,22 @@ class External_account_model extends CI_Model
             $data[column("account", "last_ip")] = $this->input->ip_address();
         }
 
-        $userId = $this->connection->table(table("account"))->insert($data);
+        // Battlenet accounts
+        if ($this->config->item('battle_net')) {
+            $battleData = [
+                column('battlenet_accounts', 'email') => strtoupper($email),
+                column('battlenet_accounts', 'last_ip') => $this->input->ip_address(),
+                column('battlenet_accounts', 'joindate') => date('Y-m-d H:i:s')
+            ];
+            list($hash, $battleData) = $this->setBattleNetPassword($email, $password, $battleData);
+
+            $this->connection->table(table('battlenet_accounts'))->insert($battleData);
+            $battleNetId = $this->connection->insertID();
+            $data[column('account', 'battlenet_id')] = $battleNetId;
+        }
+
+        $this->connection->table(table('account'))->insert($data);
+        $userId = $this->connection->insertID();
 
         if (preg_match("/^cmangos/i", get_class($this->realms->getEmulator())))
         {
@@ -194,23 +209,6 @@ class External_account_model extends CI_Model
             ];
 
             $this->connection->table(table("account_logons"))->insert($ip_data);
-        }
-
-        $userId = $this->user->getId($username);
-
-        // Battlenet accounts
-        if ($this->config->item('battle_net')) {
-            $battleData = [
-                column("battlenet_accounts", "id") => $userId,
-                column("battlenet_accounts", "email") => strtoupper($email),
-                column("battlenet_accounts", "last_ip") => $this->input->ip_address(),
-                column("battlenet_accounts", "joindate") => date("Y-m-d H:i:s")
-            ];
-            list($hash, $battleData) = $this->setBattleNetPassword($email, $password, $battleData);
-
-            $this->connection->table(table("battlenet_accounts"))->insert($battleData);
-
-            $this->connection->query("UPDATE account SET battlenet_account = $userId, battlenet_index = 1 WHERE id = $userId", [$userId]);
         }
 
         // Fix for TrinityCore RBAC (or any emulator with 'rbac')
