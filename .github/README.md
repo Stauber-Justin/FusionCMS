@@ -35,7 +35,6 @@ its ease of use and development, safe and secure codebase and dedication to simp
 
 | Emulator                                 | Status |
 |------------------------------------------|:--------:|
-| TrinityCore (3.3.5a)                     | ✅ |
 | TrinityCore - The War Within             | ✅ |
 | TrinityCore - Dragonflight               | ✅ |
 | TrinityCore - Shadowlands                | ✅ |
@@ -46,16 +45,9 @@ its ease of use and development, safe and secure codebase and dedication to simp
 
 | Emulator                             | Status |
 |--------------------------------------|:--------:|
-| Classic                              | ✅ |
-| TBC                                  | ✅ |
-| Wotlk                                | ✅ |
-| Cataclysm                            | ✅ |
-| Mists of Pandaria                    | ✅ |
-| Warlords of Draenor                  | ✅ |
 | Legion                               | ✅ |
 | Battle For Azeroth                   | ✅ |
 | Shadowlands                          | ✅ |
-| Calssic (TBC , Wotlk, Cataclysm)     | ✅ |
 | Dragonflight                         | ✅ |
 | The War Within                       | ✅ |
 
