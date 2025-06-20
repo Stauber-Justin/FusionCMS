@@ -40,7 +40,7 @@ If applicable, add screenshots to help explain your problem.
  - MySQL version[e.g. 8.0]
  - CMS version[e.g. 9.0.3]
  - Expansion [e.g. Mists of Pandaria, Wotlk, Cataclysm, ...]
- - Selected Emulator [e.g. TrinityCore - Dragon Flight, Shadowlands, Battle for Azeroth, ...]
+ - Selected Emulator [e.g. TrinityCore (3.3.5a), TrinityCore - Legion, TrinityCore - Battle for Azeroth, TrinityCore - Shadowlands, TrinityCore - Dragonflight, TrinityCore - The War Within]
 
 **Additional context**
 Add any other context about the problem here.

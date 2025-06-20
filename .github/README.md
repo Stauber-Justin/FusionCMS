@@ -37,7 +37,7 @@ its ease of use and development, safe and secure codebase and dedication to simp
 |------------------------------------------|:--------:|
 | TrinityCore (3.3.5a)                     | ✅ |
 | TrinityCore - The War Within             | ✅ |
-| TrinityCore - Dragon Flight              | ✅ |
+| TrinityCore - Dragonflight               | ✅ |
 | TrinityCore - Shadowlands                | ✅ |
 | TrinityCore - Battle for Azeroth         | ✅ |
 | TrinityCore - Legion                     | ✅ |
