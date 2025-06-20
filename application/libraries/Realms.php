@@ -31,7 +31,7 @@ class Realms
     private array $hordeRaces;
     private array $allianceRaces;
 
-    private string $defaultEmulator = "trinity";
+    private string $defaultEmulator = "trinity_legion";
 
     public function __construct()
     {
