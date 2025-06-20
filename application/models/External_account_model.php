@@ -71,11 +71,7 @@ class External_account_model extends CI_Model
 
     private function fetchAccountData($encryption, $totp_secret_name, $where): bool|BaseResult|Query
     {
-        if (preg_match("/^cmangos/i", get_class($this->realms->getEmulator()))) {
-            return !$where
-                ? $this->connection->query(query('get_account_id'), [Services::session()->get('uid')])
-                : $this->connection->query(query('get_account'), [$where]);
-        }
+
 
         $columns = CI::$APP->realms->getEmulator()->getAllColumns(table('account'));
         $columns = $this->removeExtraColumnsForEncryption($columns, $encryption);
@@ -177,10 +173,7 @@ class External_account_model extends CI_Model
 
         list($hash, $data) = $this->setAccountPassword($encryption, $username, $password, $data);
 
-        if (!preg_match("/^cmangos/i", get_class($this->realms->getEmulator())))
-        {
-            $data[column("account", "last_ip")] = $this->input->ip_address();
-        }
+        $data[column("account", "last_ip")] = $this->input->ip_address();
 
         // Battlenet accounts
         if ($this->config->item('battle_net')) {
@@ -199,17 +192,7 @@ class External_account_model extends CI_Model
         $this->connection->table(table('account'))->insert($data);
         $userId = $this->connection->insertID();
 
-        if (preg_match("/^cmangos/i", get_class($this->realms->getEmulator())))
-        {
-            $ip_data = [
-                'accountId' => $userId,
-                'ip' => $this->input->ip_address(),
-                'loginTime' => date("Y-m-d H:i:s"),
-                'loginSource' => '0'
-            ];
 
-            $this->connection->table(table("account_logons"))->insert($ip_data);
-        }
 
         // Fix for TrinityCore RBAC (or any emulator with 'rbac')
         if ($this->config->item('rbac')) {
@@ -453,31 +436,20 @@ class External_account_model extends CI_Model
     {
         $this->connect();
 
-        if (preg_match("/^trinity/i", get_class($this->realms->getEmulator()))) {
-            $this->connection->table(table("account_access"))->where(column("account", "id"), $userId)->update([column("account_access", "SecurityLevel") => $newRank]);
-        } elseif (preg_match("/^cmangos/i", get_class($this->realms->getEmulator()))) {
-            $this->connection->table(table("account"))->where(column("account", "id"), $userId)->update([column("account", "gmlevel") => $newRank]);
-        } else {
-            $this->connection->table(table("account_access"))->where(column("account", "id"), $userId)->update([column("account_access", "gmlevel") => $newRank]);
-        }
+        $this->connection
+            ->table(table("account_access"))
+            ->where(column("account", "id"), $userId)
+            ->update([column("account_access", "SecurityLevel") => $newRank]);
     }
 
     public function setLastIp($userId, $ip)
     {
         $this->connect();
 
-        if (preg_match("/^cmangos/i", get_class($this->realms->getEmulator()))) {
-            $data = [
-                'accountId' => $userId,
-                'ip' => $ip,
-                'loginTime' => date("Y-m-d H:i:s"),
-                'loginSource' => '0'
-            ];
-
-            $this->connection->table(table("account_logons"))->insert($data);
-        } else {
-            $this->connection->table(table("account"))->where(column("account", "id"), $userId)->update([column("account", "last_ip") => $ip]);
-        }
+        $this->connection
+            ->table(table("account"))
+            ->where(column("account", "id"), $userId)
+            ->update([column("account", "last_ip") => $ip]);
     }
 
     /*

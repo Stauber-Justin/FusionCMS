@@ -15,36 +15,6 @@ class Data_model extends CI_Model
         }
 
         switch ($this->emuStr) {
-            case 'cmangos':
-            case 'mangos_three':
-            case 'mangos_one_two':
-            {
-                $statements = [
-                    'TopArenaTeams' => "SELECT `arena_team`.`arenateamid` AS arenateamid, 
-                                        `arena_team_stats`.`rating` AS rating, 
-                                        `arena_team_stats`.`rank` AS rank, 
-                                        `arena_team`.`name` AS name, 
-                                        `arena_team`.`captainguid` AS captain, 
-                                        `arena_team`.`type` AS type
-                                    FROM `arena_team`, `arena_team_stats`
-                                    WHERE `arena_team`.`arenateamid` = `arena_team_stats`.`arenateamid` AND `arena_team`.`type` = ? 
-                                    ORDER BY `arena_team_stats`.`rating` DESC LIMIT ?;",
-                    'TeamMembers' => "SELECT 
-                                    `arena_team_member`.`arenateamid` AS arenateamid, 
-                                    `arena_team_member`.`guid` AS guid, 
-                                    `arena_team_member`.`personal_rating` AS rating,
-                                    `arena_team_member`.`played_season` AS games,
-                                    `arena_team_member`.`wons_season` AS wins,
-                                    `characters`.`name` AS name,
-                                    `characters`.`class` AS class,
-                                    `characters`.`level` AS level
-                                FROM `arena_team_member` 
-                                RIGHT JOIN `characters` ON `characters`.`guid` = `arena_team_member`.`guid` 
-                                WHERE `arena_team_member`.`arenateamid` = ? ORDER BY guid ASC;",
-                    'TopHKPlayers' => "SELECT `guid`, `name`, `level`, `race`, `class`, `gender`, `totalKills` AS kills FROM `characters` WHERE `totalKills` > 0 ORDER BY `totalKills` DESC LIMIT ?;"
-                ];
-                break;
-            }
             default:
             {
                 $statements = [
