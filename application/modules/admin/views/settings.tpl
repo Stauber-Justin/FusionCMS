@@ -350,7 +350,7 @@
 				</div>
 
 				<div class="form-group row">
-				<label class="col-sm-2 col-form-label" for="port">Realm port (cmangos: 8129, others: 8085)</label>
+                                <label class="col-sm-2 col-form-label" for="port">Realm port (default: 8085)</label>
 				<div class="col-sm-10">
 					<div data-plugin-spinner data-plugin-options='{ "value": 0, "min": 0, "max": 65535 }'>
 						<div class="input-group">

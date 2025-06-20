@@ -35,18 +35,12 @@ its ease of use and development, safe and secure codebase and dedication to simp
 
 | Emulator                                 | Status |
 |------------------------------------------|:--------:|
-| TrinityCore old base                     | ✅ |
-| TrinityCore SRP6                         | ✅ |
-| TrinityCore SRP6 v2                      | ✅ |
-| TrinityCore Classic (TBC, Wotlk, Cata)   | ✅ |
-| Skyfire SRP6                             | ✅ |
-| Skyfire old base                         | ✅ |
-| AzerothCore old base                     | ✅ |
-| AzerothCore SRP6                         | ✅ |
-| Cmangos                                  | ✅ |
-| Vmangos                                  | ✅ |
-| Mangos one - two - three                 | ✅ |
-| OregonCore                               | ✅ |
+| TrinityCore (3.3.5a)                     | ✅ |
+| TrinityCore - The War Within             | ✅ |
+| TrinityCore - Dragon Flight              | ✅ |
+| TrinityCore - Shadowlands                | ✅ |
+| TrinityCore - Battle for Azeroth         | ✅ |
+| TrinityCore - Legion                     | ✅ |
 
 ### Supported expansions
 

@@ -55,25 +55,24 @@ class Accounts_model extends CI_Model
     {
         $encryption = $this->config->item('account_encryption');
 
-        if (preg_match("/^cmangos/i", get_class($this->realms->getEmulator())))
-        {
-            $query = $this->connection->query(query('get_account_id'), [$id]);
-        } else {
-            $columns = CI::$APP->realms->getEmulator()->getAllColumns(table('account'));
+        $columns = CI::$APP->realms->getEmulator()->getAllColumns(table('account'));
 
-            if ($encryption == 'SPH') {
-                if (column('account', 'verifier') && column('account', 'salt')){
-                    unset($columns[column('account', 'verifier')]);
-                    unset($columns[column('account', 'salt')]);
-                }
-            } elseif ($encryption == 'SRP6' || $encryption == 'SRP') {
-                if (column('account', 'sha_pass_hash')){
-                    unset($columns[column('account', 'sha_pass_hash')]);
-                }
+        if ($encryption == 'SPH') {
+            if (column('account', 'verifier') && column('account', 'salt')) {
+                unset($columns[column('account', 'verifier')]);
+                unset($columns[column('account', 'salt')]);
             }
-
-            $query = $this->connection->query("SELECT " . formatColumns($columns) . " FROM " . table("account") . " WHERE " . column("account", "id") . " = ?", [$id]);
+        } elseif ($encryption == 'SRP6' || $encryption == 'SRP') {
+            if (column('account', 'sha_pass_hash')) {
+                unset($columns[column('account', 'sha_pass_hash')]);
+            }
         }
+
+        $query = $this->connection->query(
+            "SELECT " . formatColumns($columns) . " FROM " . table('account') .
+            " WHERE " . column('account', 'id') . " = ?",
+            [$id]
+        );
 
         if ($query->getNumRows() > 0)
         {
@@ -98,11 +97,12 @@ class Accounts_model extends CI_Model
 
     public function getAccessId($userId = 0)
     {
-        if (preg_match("/mangos/i", get_class($this->realms->getEmulator()))) {
-            $query = $this->connection->query("SELECT " . column("account", "gmlevel", true) . " FROM " . table("account") . " WHERE " . column("account", "id") . " = ?", array($userId));
-        } else {
-            $query = $this->connection->query("SELECT " . column("account_access", "gmlevel", true) . " FROM " . table("account_access") . " WHERE " . column("account_access", "id") . " = ?", array($userId));
-        }
+        $query = $this->connection->query(
+            "SELECT " . column("account_access", "gmlevel", true) . " FROM " .
+            table("account_access") . " WHERE " . column("account_access", "id") .
+            " = ?",
+            [$userId]
+        );
 
         if ($query->getNumRows() > 0) {
             $result = $query->getResultArray();
@@ -134,23 +134,15 @@ class Accounts_model extends CI_Model
         }
 
         if ($this->getAccessId($id)) {
-            if (preg_match("/mangos/i", get_class($this->realms->getEmulator()))) {
-                // Update external access
-                $this->connection->table(table('account'))->where(column('account', 'id'), $id)->update($external_account_access_data);
-            } else {
-                // Update external access
-                $this->connection->table(table('account_access'))->where(column('account_access', 'id'), $id)->update($external_account_access_data);
-            }
+            // Update external access
+            $this->connection->table(table('account_access'))
+                ->where(column('account_access', 'id'), $id)
+                ->update($external_account_access_data);
         } else {
-            if (preg_match("/mangos/i", get_class($this->realms->getEmulator()))) {
-                // Update external access
-                $external_account_access_data[column('account', 'id')] = $id;
-                $this->connection->table(table('account'))->insert($external_account_access_data);
-            } else {
-                // Update external access
-                $external_account_access_data[column('account_access', 'id')] = $id;
-                $this->connection->table(table('account_access'))->insert($external_account_access_data);
-            }
+            // Insert external access
+            $external_account_access_data[column('account_access', 'id')] = $id;
+            $this->connection->table(table('account_access'))
+                ->insert($external_account_access_data);
         }
 
         // Update internal
