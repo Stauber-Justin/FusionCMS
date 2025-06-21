@@ -22,6 +22,7 @@
 * [Getting Started](#getting-started)
     * [Prerequisites](#prerequisites)
     * [Security Tips](#security-tips)
+* [Modules Overview](#modules-overview)
 * [Contributing](#contributing)
 * [License](#license)
 * [Authors](#authors)
@@ -72,6 +73,15 @@ Read the [Installation Guide](https://github.com/FusionWowCMS/FusionCMS/wiki/Ins
 ### Security Tips
 > [!IMPORTANT]
 > Read the [Security Tips](SECURITY.md).
+
+## Modules Overview
+
+FusionCMS ships with a rich selection of modules such as the admin panel,
+authentication, armory search, character and guild viewers, donation tools,
+and various sideboxes. Modules can be enabled from the **Modules** section in
+the admin panel or by setting `"enabled": true` in a module's
+`manifest.json`. See [docs/Fusion.md](../docs/Fusion.md) for the full list of
+modules and more details on the underlying architecture.
 
 ## Contributing
 
